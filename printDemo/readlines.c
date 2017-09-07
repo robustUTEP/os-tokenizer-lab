@@ -44,6 +44,7 @@ int countLines(int fd, int *pMaxLineLen)
 // Reads lines from open fd
 // Fd must be seekable
 // Returns 0 terminated vector of strings
+//   Also, sets *numLinesP and *maxLineLenP if nonzero.
 char **readLines(int fd, int *numLinesP, int *maxLineLenP)
 {
   int numBytesRead, numLines, maxLineLen, numLinesRead = 0;
@@ -84,7 +85,7 @@ char **readLines(int fd, int *numLinesP, int *maxLineLenP)
 	  *(pLineBuf++) = lastChar;
       }
       if (lastChar != '\n') {	// last line isn't terminated
-	*pLineBuf = 0;	// terminate word 
+	*pLineBuf = 0;	// terminate line 
 	*(pLines++) = strcopy(lineBuf);
       }	
     }
