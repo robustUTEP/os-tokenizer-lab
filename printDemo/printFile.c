@@ -18,8 +18,6 @@
 #include "readlines.h"
 #include "assert2.h"
 
-#define BUFSIZE 1024
-
 int main(int argc, char **argv) {
 
   int ifd, ofd = 1;		/* file descriptors (1=default output) */
@@ -45,22 +43,10 @@ int main(int argc, char **argv) {
 
   /* print lines */
   {
-    /* 10 chars needed for linenum + newline + zero terminator */
-    size_t obufSize = ((10+maxLineLen) > BUFSIZE) ? (10+maxLineLen) : BUFSIZE;
-    
-    char *obuf = (char *)malloc(obufSize);
-    size_t obufCount = 0, obufLimit = obufSize - maxLineLen;
-
     for (pLines = lines; *pLines; pLines++) {
-      if (obufCount >= obufLimit) {
-	write(ofd, obuf, obufCount);
-	obufCount = 0;
-      }
-      obufCount += sprintf(&obuf[obufCount], "%06d:\t%s\n", lineNum++, *pLines);
+      printf("%06d:\t%s\n", ++lineNum, *pLines);
       free(*pLines);
     }
-    write(ofd, obuf, obufCount); /* final write */
-    free(obuf);
   }
   free(lines);
   fflush(stdout);

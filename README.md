@@ -2,7 +2,9 @@
 
 The printDemo subdir includes source code to a program that 
 prints text files line-by-line with line numbers.  It does lots of malloc and 
-pointer futzing.
+pointer futzing.  You can demo it by running "make demo".  
+
+Be sure to examine how the "demo" production in the Makefile works.
 
 Your lab should be added to the "tokenizer" subdir and pushed back to
 the repository for grading.
